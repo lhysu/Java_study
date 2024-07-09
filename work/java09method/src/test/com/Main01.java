@@ -5,6 +5,20 @@ public class Main01 {
         System.out.println("hello");
 
         BoardVO vo = new BoardVO();
+        vo.setNum(77);
+        //vo.num = 77   //private 전역변수 접근 불가
+        //System.out.println(vo.num);
+
+        vo.setTitle("aaa");
+        vo.setContent("bbb");
+        vo.setWriter("ccc");
+        vo.setWdate("121");
+
+        System.out.println(vo.getTitle());
+        System.out.println(vo.getContent());
+        System.out.println(vo.getWriter());
+        System.out.println(vo.getWdate());
+
 
         System.out.println(vo.toString());
 

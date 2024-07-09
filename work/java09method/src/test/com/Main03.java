@@ -7,6 +7,18 @@ public class Main03 {
         StudentVO vo = new StudentVO();
         StudentDAO dao = new StudentDAO();
 
+        vo.setNum(1);
+        vo.setName("yang");
+        vo.setKor(77);
+        vo.setEng(88);
+        vo.setMath(99);
+
+        System.out.println(vo.getNum());
+        System.out.println(vo.getName());
+        System.out.println(vo.getKor());
+        System.out.println(vo.getEng());
+        System.out.println(vo.getMath());
+
 
 
         int result = dao.insert(new StudentVO(1,"aaa",11,22,33));

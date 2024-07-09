@@ -8,6 +8,19 @@ public class Main02 {
 
         MemberVO mb = new MemberVO();
 
+        mb.setNum(11);
+        mb.setId("javaa");
+        mb.setPw("0987");
+        mb.setName("choi");
+        mb.setTel("0123");
+
+        System.out.println(mb.getNum());
+        System.out.println(mb.getName());
+        System.out.println(mb.getId());
+        System.out.println(mb.getPw());
+        System.out.println(mb.getTel());
+
+
         MemberDAO mdao = new MemberDAO();
 
         mdao.insert();
