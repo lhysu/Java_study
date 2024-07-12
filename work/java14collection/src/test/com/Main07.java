@@ -71,8 +71,79 @@ public class Main07 {
           });
         System.out.println(names);
 
+        List<PersonVO> vos = new ArrayList<>();
+        PersonVO vo = new PersonVO();
+        vo.setNum(1);
+        vo.setName("kim");
+        vo.setAge(33);
+        vos.add(vo);
+        vo = new PersonVO();
+        vo.setNum(2);
+        vo.setName("han");
+        vo.setAge(55);
+        vos.add(vo);
+        vo = new PersonVO();
+        vo.setNum(3);
+        vo.setName("yang");
+        vo.setAge(22);
+        vos.add(vo);
+        System.out.println(vos);
 
-                //3.Map - HashMap, HashTable
+        //이름의 오름차순 정렬
+        vos.sort(new Comparator<PersonVO>() {
+            @Override
+            public int compare(PersonVO o1, PersonVO o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        System.out.println(vos);
+
+        //나이의 내림차순 정렬
+        vos.sort(new Comparator<PersonVO>() {
+            @Override
+            public int compare(PersonVO o1, PersonVO o2) {
+                return o2.getAge()- o1.getAge();
+            }
+        });
+        System.out.println(vos);
+
+        //MemberVO를 이용해서 ArrayList에 추가하고
+        List<MemberVO> vos2 = new ArrayList<>();
+        MemberVO mb = new MemberVO();
+        mb.setNum(1);
+        mb.setName("kim");
+        mb.setTel("0101");
+        vos2.add(mb);
+        mb = new MemberVO();
+        mb.setNum(2);
+        mb.setName("lee");
+        mb.setTel("0103");
+        vos2.add(mb);
+        mb = new MemberVO();
+        mb.setNum(3);
+        mb.setName("han");
+        mb.setTel("0102");
+        vos2.add(mb);
+
+        //이름으로 내림차순 정렬
+        vos2.sort(new Comparator<MemberVO>() {
+            @Override
+            public int compare(MemberVO o1, MemberVO o2) {
+                return o2.getName().compareTo(o1.getName());
+            }
+        });
+        System.out.println(vos2);
+
+        //전화번호로 오름차순 정렬
+        vos2.sort(new Comparator<MemberVO>() {
+            @Override
+            public int compare(MemberVO o1, MemberVO o2) {
+                return o1.getTel().compareTo(o2.getTel());
+            }
+        });
+        System.out.println(vos2);
+
+        //3.Map - HashMap, HashTable
 
     }//end main
 }//end class
