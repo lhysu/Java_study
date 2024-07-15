@@ -6,6 +6,9 @@ public class BoardVO {
     private String content;
     private String writer;
     private String wdate;
+    //private String w_date;
+    //private String wDate;         //getter, setter 사용할 때 오류가 남(getW_date, getwDate로 만들어져서)
+                                    //소문자 두개가 이어지게 변수명을 짓자
 
     public String getContent() {
         return content;
