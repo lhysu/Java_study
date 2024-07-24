@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class ProductDAOimpl implements ProductDAO {
-    List<ProductVO> list = new ArrayList<>();
+
     private static final String DRIVER_NAME="oracle.jdbc.OracleDriver";
     private static final String URL="jdbc:oracle:thin:@localhost:1521:xe";
     private static final String USER="JAVA";
@@ -37,11 +37,37 @@ public class ProductDAOimpl implements ProductDAO {
         int flag = 0;
         try {
             conn=DriverManager.getConnection(URL,USER,PASSWORD);
+            String sql = "insert into product(num,pname,model,price,count,user_id)"+
+                    "values(seq_product.nextval,?,?,?,?,?)";
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,vo.getPname());
+            pstmt.setString(2,vo.getModel());
+            pstmt.setInt(3,vo.getPrice());
+            pstmt.setInt(4,vo.getCount());
+            pstmt.setString(5,vo.getUser_id());
+
+            flag = pstmt.executeUpdate();
+            System.out.println("flag : "+flag);
+
             System.out.println("conn success...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        flag = 1;
         return flag;
     }
 
@@ -54,9 +80,36 @@ public class ProductDAOimpl implements ProductDAO {
         int flag = 0;
         try {
             conn = DriverManager.getConnection(URL,USER,PASSWORD);
+            String sql = "update product set pname=?, model=?,price=?,count=?,user_id=? "+
+                    " where num=?";
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,vo.getPname());
+            pstmt.setString(2,vo.getModel());
+            pstmt.setInt(3,vo.getPrice());
+            pstmt.setInt(4,vo.getCount());
+            pstmt.setString(5,vo.getUser_id());
+            pstmt.setInt(6,vo.getNum());
+
+            flag = pstmt.executeUpdate();
+            System.out.println("flag : "+flag);
             System.out.println("conn success...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         return flag;
     }
@@ -69,9 +122,31 @@ public class ProductDAOimpl implements ProductDAO {
         int flag = 0;
         try {
             conn=DriverManager.getConnection(URL,USER,PASSWORD);
+            String sql = "delete from product where num=?";
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setInt(1,vo.getNum());
+
+            flag = pstmt.executeUpdate();
+            System.out.println("flag : "+flag);
             System.out.println("conn success...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
         }
         return flag;
     }
@@ -105,6 +180,28 @@ public class ProductDAOimpl implements ProductDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
 
@@ -204,6 +301,28 @@ public class ProductDAOimpl implements ProductDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
 

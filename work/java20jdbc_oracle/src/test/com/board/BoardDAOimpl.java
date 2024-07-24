@@ -1,12 +1,13 @@
 package test.com.board;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDAOimpl implements BoardDAO {
 
-    List<BoardVO> list = new ArrayList<>();
+
     private static final String DRIVER_NAME="oracle.jdbc.OracleDriver";
     private static final String URL="jdbc:oracle:thin:@localhost:1521:xe";
     private static final String USER="JAVA";
@@ -33,12 +34,38 @@ public class BoardDAOimpl implements BoardDAO {
 
         try {
             conn = DriverManager.getConnection(URL,USER,PASSWORD);
+            String sql = "insert into board(num,title,content,writer) "+
+                    " values(seq_board.nextval,?,?,?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,vo.getTitle());
+            pstmt.setString(2,vo.getContent());
+            pstmt.setString(3,vo.getWriter());
+
+
+            flag = pstmt.executeUpdate();
+            System.out.println("flag : "+flag);
+
             System.out.println("conn success...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
-        flag = 1;
+
         return flag;
     }
 
@@ -50,9 +77,37 @@ public class BoardDAOimpl implements BoardDAO {
 
         try {
             conn=DriverManager.getConnection(URL,USER,PASSWORD);
+
+            String sql = "update board set title =?, content=?, writer=?, wdate = sysdate"+
+                    " where num = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,vo.getTitle());
+            pstmt.setString(2,vo.getContent());
+            pstmt.setString(3,vo.getWriter());
+            pstmt.setInt(4,vo.getNum());
+
+            flag = pstmt.executeUpdate();
+            System.out.println("flag : "+flag);
             System.out.println("conn success...");
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
         }
 
         return flag;
@@ -65,9 +120,31 @@ public class BoardDAOimpl implements BoardDAO {
         int flag = 0;
         try {
             conn=DriverManager.getConnection(URL,USER,PASSWORD);
+            String sql = "delete from board where num = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,vo.getNum());
+
+            flag = pstmt.executeUpdate();
+            System.out.println("flag : "+flag);
             System.out.println("conn success...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
         }
         return flag;
     }
@@ -93,11 +170,34 @@ public class BoardDAOimpl implements BoardDAO {
                 vo2.setTitle(rs.getString("title"));
                 vo2.setContent(rs.getString("content"));
                 vo2.setWriter(rs.getString("writer"));
-                vo2.setWdate(rs.getDate("wdate").toString());
+                //vo2.setWdate(rs.getDate("wdate").toString());
+                vo2.setWdate(new Timestamp(rs.getTimestamp("wdate").getTime()).toString());
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
 
@@ -128,13 +228,36 @@ public class BoardDAOimpl implements BoardDAO {
                 vo.setContent(rs.getString("content"));
                 vo.setWriter(rs.getString("writer"));
                 //vo.setWdate(rs.getDate("wdate").toString());
-                vo.setWdate(new Timestamp(rs.getDate("wdate").getTime()).toString());
+                //vo.setWdate(new Timestamp(rs.getDate("wdate").getTime()).toString());
+                vo.setWdate(new Timestamp(rs.getTimestamp("wdate").getTime()).toString());
 
                 list.add(vo);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
         return list;
@@ -163,7 +286,8 @@ public class BoardDAOimpl implements BoardDAO {
                     vo.setTitle(rs.getString("title"));
                     vo.setContent(rs.getString("content"));
                     vo.setWriter(rs.getString("writer"));
-                    vo.setWdate(rs.getDate("wdate").toString());
+                    //vo.setWdate(rs.getDate("wdate").toString());
+                    vo.setWdate(new Timestamp(rs.getTimestamp("wdate").getTime()).toString());
                     vos.add(vo);
                 }
             }else if(searchKey.equals("content")){
@@ -179,12 +303,35 @@ public class BoardDAOimpl implements BoardDAO {
                     vo.setTitle(rs.getString("title"));
                     vo.setContent(rs.getString("content"));
                     vo.setWriter(rs.getString("writer"));
-                    vo.setWdate(rs.getDate("wdate").toString());
+                    //vo.setWdate(rs.getDate("wdate").toString());
+                    vo.setWdate(new Timestamp(rs.getTimestamp("wdate").getTime()).toString());
                     vos.add(vo);
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
 
