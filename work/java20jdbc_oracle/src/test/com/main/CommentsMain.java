@@ -26,7 +26,7 @@ public class CommentsMain {
         while(true){
 
             System.out.println("메뉴를 선택하세요");
-            System.out.println("1.입력,2.수정,3.삭제,4.번호검색,5.모두검색,6.검색..[x입력시 종료]");
+            System.out.println("1.입력,2.수정,3.삭제,4.번호검색,5.모두검색,6.검색어 검색..[x입력시 종료]");
             String menu = br.readLine();
             System.out.println("==========================");
             if(menu.equals("1")){
@@ -56,16 +56,12 @@ public class CommentsMain {
                 int num = Integer.parseInt(br.readLine());
                 System.out.print("content: ");
                 String content = br.readLine();
-                System.out.print("writer: ");
-                String writer = br.readLine();
-                System.out.print("bnum: ");
-                int bnum = Integer.parseInt(br.readLine());
+
 
                 CommentsVO vo = new CommentsVO();
                 vo.setNum(num);
                 vo.setContent(content);
-                vo.setWriter(writer);
-                vo.setBnum(bnum);
+
 
                 int result = dao.update(vo);
 
@@ -123,9 +119,9 @@ public class CommentsMain {
 
             } else if (menu.equals("6")) {
                 //6.searchList
-                System.out.println("searchKey[writer or content]: ");
+                System.out.print("searchKey[writer or content]: ");
                 String searchKey = br.readLine();
-                System.out.println("searchWord: ");
+                System.out.print("searchWord: ");
                 String searchWord = br.readLine();
                 System.out.println("bnum: ");
                 int bnum = Integer.parseInt(br.readLine());
