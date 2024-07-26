@@ -225,6 +225,61 @@ public class MemberDAOimpl implements MemberDAO {
     }
 
     @Override
+    public MemberVO id_Check(String id) {
+        System.out.println("id_Check()...");
+
+        MemberVO vo = null;
+        //3-2: 커넥션
+        try {
+            conn = DriverManager.getConnection(URL,USER,PASSWORD);
+            System.out.println("conn success...");
+
+            String sql = "select * from member where id = ?";      //?:와일드카드(쿼리에서 사용하는 변수)
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,id);        //첫번째 ?에 변수 세팅
+
+            rs= pstmt.executeQuery();
+            while(rs.next()){
+                vo = new MemberVO();
+                vo.setNum(rs.getInt("num"));
+                vo.setName(rs.getString("name"));
+                vo.setId(rs.getString("id"));
+                vo.setPw(rs.getString("pw"));
+                vo.setTel(rs.getString("tel"));
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+
+        return vo;
+    }
+
+    @Override
     public List<MemberVO> selectAll() {
         System.out.println("selectAll()...");
         List<MemberVO> list = new ArrayList<>();

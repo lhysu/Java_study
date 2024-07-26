@@ -1,6 +1,6 @@
 package test.com.emp;
 
-public class EmpVO {
+public class EmpJobVO {
     private int employee_id;
     private String first_name;
     private String last_name;
@@ -12,6 +12,16 @@ public class EmpVO {
     private double commission_pct;
     private int manager_id;
     private int department_id;
+
+    private String job_title;
+
+    public String getJob_title() {
+        return job_title;
+    }
+
+    public void setJob_title(String job_title) {
+        this.job_title = job_title;
+    }
 
 
 
@@ -105,7 +115,7 @@ public class EmpVO {
 
     @Override
     public String toString() {
-        return "EmpVO{" +
+        return "EmpJobVO{" +
                 "commission_pct=" + commission_pct +
                 ", employee_id=" + employee_id +
                 ", first_name='" + first_name + '\'' +
@@ -117,6 +127,7 @@ public class EmpVO {
                 ", salary=" + salary +
                 ", manager_id=" + manager_id +
                 ", department_id=" + department_id +
+                ", job_title='" + job_title + '\'' +
                 '}';
     }
 }

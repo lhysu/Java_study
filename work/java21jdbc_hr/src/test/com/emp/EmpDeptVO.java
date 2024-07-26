@@ -1,6 +1,6 @@
 package test.com.emp;
 
-public class EmpVO {
+public class EmpDeptVO {
     private int employee_id;
     private String first_name;
     private String last_name;
@@ -12,8 +12,17 @@ public class EmpVO {
     private double commission_pct;
     private int manager_id;
     private int department_id;
+    private String department_name;
 
 
+
+    public String getDepartment_name() {
+        return department_name;
+    }
+
+    public void setDepartment_name(String department_name) {
+        this.department_name = department_name;
+    }
 
     public double getCommission_pct() {
         return commission_pct;
@@ -117,6 +126,8 @@ public class EmpVO {
                 ", salary=" + salary +
                 ", manager_id=" + manager_id +
                 ", department_id=" + department_id +
+                ", department_name='" + department_name + '\'' +
+                ", job_title='" +  '\'' +
                 '}';
     }
 }

@@ -215,6 +215,129 @@ public class EmpDAOimpl implements EmpDAO{
     }
 
     @Override
+    public List<EmpDeptVO> selectAll2() {
+        System.out.println("selectAll2()...");
+        List<EmpDeptVO> list =new ArrayList<>();
+
+        try {
+            conn= DriverManager.getConnection(URL,USER,PASSWORD);
+            System.out.println("conn success...");
+            String sql = "select * from view_dept_emp order by employee_id desc";
+            pstmt=conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                EmpDeptVO vo = new EmpDeptVO();
+                vo.setEmployee_id(rs.getInt("employee_id"));
+                vo.setFirst_name(rs.getString("first_name"));
+                vo.setLast_name(rs.getString("last_name"));
+                vo.setEmail(rs.getString("email"));
+                vo.setPhone_number(rs.getString("phone_number"));
+                vo.setHire_date(rs.getDate("hire_date").toString());
+                vo.setJob_id(rs.getString("job_id"));
+                vo.setSalary(rs.getInt("salary"));
+                vo.setCommission_pct(rs.getInt("commission_pct"));
+                vo.setManager_id(rs.getInt("manager_id"));
+                vo.setDepartment_id(rs.getInt("department_id"));
+                vo.setDepartment_name(rs.getString("department_name"));
+                list.add(vo);
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+
+
+        return list;
+    }
+
+    @Override
+    public List<EmpJobVO> selectAll3() {
+        System.out.println("selectAll()...");
+        List<EmpJobVO> list =new ArrayList<>();
+
+        try {
+            conn= DriverManager.getConnection(URL,USER,PASSWORD);
+            System.out.println("conn success...");
+            String sql = "select * from view_job_emp order by employee_id desc";
+            pstmt=conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                EmpJobVO vo = new EmpJobVO();
+                vo.setEmployee_id(rs.getInt("employee_id"));
+                vo.setFirst_name(rs.getString("first_name"));
+                vo.setLast_name(rs.getString("last_name"));
+                vo.setEmail(rs.getString("email"));
+                vo.setPhone_number(rs.getString("phone_number"));
+                vo.setHire_date(rs.getDate("hire_date").toString());
+                vo.setJob_id(rs.getString("job_id"));
+                vo.setJob_title(rs.getString("job_title"));
+                vo.setSalary(rs.getInt("salary"));
+                vo.setCommission_pct(rs.getInt("commission_pct"));
+                vo.setManager_id(rs.getInt("manager_id"));
+                vo.setDepartment_id(rs.getInt("department_id"));
+
+                list.add(vo);
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            if(conn!=null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(pstmt!=null){
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+
+
+        return list;
+    }
+
+    @Override
     public List<EmpVO> searchList(String searchKey, String searchWord) {
         System.out.println("searchList()...");
         System.out.println(searchKey);
@@ -267,6 +390,8 @@ public class EmpDAOimpl implements EmpDAO{
                     vo.setDepartment_id(rs.getInt("department_id"));
                     list.add(vo);
                 }
+            }else{
+                System.out.println("잘못된 입력");
             }
 
 

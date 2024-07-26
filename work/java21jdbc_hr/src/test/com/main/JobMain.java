@@ -15,7 +15,7 @@ public class JobMain {
 
         JobDAO dao = new JobDAOimpl();
 
-        while(true){
+        out:while(true){
             System.out.println("메뉴를 선택하세요");
             System.out.println("1.입력,2.수정,3.삭제,4.번호검색,5.모두검색,6.검색어검색..[x입력시 종료]");
             String menu = br.readLine();
@@ -25,6 +25,20 @@ public class JobMain {
                 //1.insert
                 System.out.println("job_id:");
                 String job_id = br.readLine();
+
+                //입력한 job_id(unique) 검증이 필요하다. >> 중복체크가 필요하다.
+                //중복되지 않은 업무코드인 경우만 다음으로 진행
+
+                JobVO vo2= dao.job_idCheck(job_id);
+                while(vo2!=null){
+                    System.out.println("중복된 코드");
+                    System.out.println("job_id:");
+                    job_id = br.readLine();
+                    vo2= dao.job_idCheck(job_id);
+                }
+
+                System.out.println("사용 가능");
+
                 System.out.println("job_title:");
                 String job_title = br.readLine();
                 System.out.println("min_salary:");
@@ -127,6 +141,14 @@ public class JobMain {
                     System.out.printf("%10s %35s %10d %10d \n",
                             x.getJob_id(),x.getJob_title(),x.getMin_salary(),x.getMax_salary());
                 }
+
+            }else if (menu.equals("7")) {
+                System.out.println("job_id:");
+                String job_id = br.readLine();
+                JobVO vo= dao.job_idCheck(job_id);
+                if(vo==null){
+                    System.out.println("사용 가능");
+                }else System.out.println("중복된 코드");
 
             }else if (menu.equals("x")) {
                 break;

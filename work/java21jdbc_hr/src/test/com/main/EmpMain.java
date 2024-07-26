@@ -1,8 +1,6 @@
 package test.com.main;
 
-import test.com.emp.EmpDAO;
-import test.com.emp.EmpDAOimpl;
-import test.com.emp.EmpVO;
+import test.com.emp.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +15,8 @@ public class EmpMain {
         while (true) {
 
             System.out.println("메뉴를 선택하세요");
-            System.out.println("1.입력,2.수정,3.삭제,4.번호검색,5.모두검색,6.검색어검색..[x입력시 종료]");
+            System.out.println("1.입력,2.수정,3.삭제,4.번호검색,5.모두검색,6.검색어검색 " +
+                    "7.모두검색2(부서+사원 조인=뷰 view_dept_emp),8.모두검색3(사원+업무 조인=뷰 view_emp_job)..[x입력시 종료]");
             String menu = br.readLine();
             System.out.println("==================================");
 
@@ -103,7 +102,7 @@ public class EmpMain {
                 System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s\n",
                         "employee_id","first_name","last_name","email","phone_number","hire_date","job_id",
                         "salary","commission_pct","manager_id","department_id");
-                System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10d %10d %10d %10d\n",
+                System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10d %10f %10d %10d\n",
                         vo2.getEmployee_id(),vo2.getFirst_name(),vo2.getLast_name(),vo2.getEmail(),vo2.getPhone_number(),vo2.getHire_date(),vo2.getJob_id(),
                         vo2.getSalary(),vo2.getCommission_pct(),vo2.getManager_id(),vo2.getDepartment_id());
 
@@ -114,7 +113,7 @@ public class EmpMain {
                         "employee_id","first_name","last_name","email","phone_number","hire_date","job_id",
                         "salary","commission_pct","manager_id","department_id");
                 for(EmpVO x : list){
-                    System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10d %10d %10d %10d\n",
+                    System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10d %10f %10d %10d\n",
                             x.getEmployee_id(),x.getFirst_name(),x.getLast_name(),x.getEmail(),x.getPhone_number(),x.getHire_date(),x.getJob_id(),
                             x.getSalary(),x.getCommission_pct(),x.getManager_id(),x.getDepartment_id());
                 }
@@ -130,10 +129,34 @@ public class EmpMain {
                         "employee_id","first_name","last_name","email","phone_number","hire_date","job_id",
                         "salary","commission_pct","manager_id","department_id");
                 for(EmpVO x : list){
-                    System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10d %10d %10d %10d\n",
+                    System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10d %10f %10d %10d\n",
                             x.getEmployee_id(),x.getFirst_name(),x.getLast_name(),x.getEmail(),x.getPhone_number(),x.getHire_date(),x.getJob_id(),
                             x.getSalary(),x.getCommission_pct(),x.getManager_id(),x.getDepartment_id());
                 }
+            }else if (menu.equals("7")) {
+                //7.selectAll2-view_dept_emp
+                List<EmpDeptVO> list = dao.selectAll2();
+                System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s\n",
+                        "employee_id","first_name","last_name","email","phone_number","hire_date","job_id",
+                        "salary","commission_pct","manager_id","department_id","department_name");
+                for(EmpDeptVO x : list){
+                    System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10d %10f %10d %10d %10s\n",
+                            x.getEmployee_id(),x.getFirst_name(),x.getLast_name(),x.getEmail(),x.getPhone_number(),x.getHire_date(),x.getJob_id(),
+                            x.getSalary(),x.getCommission_pct(),x.getManager_id(),x.getDepartment_id(),x.getDepartment_name());
+                }
+
+            }else if (menu.equals("8")) {
+                //8.selectAll3-view_job_emp
+                List<EmpJobVO> list = dao.selectAll3();
+                System.out.printf("%10s %10s %10s %10s %10s %10s %10s %25s %10s %10s %10s %10s\n",
+                        "employee_id","first_name","last_name","email","phone_number","hire_date","job_id","job_title",
+                        "salary","commission_pct","manager_id","department_id");
+                for(EmpJobVO x : list){
+                    System.out.printf("%10s %10s %10s %10s %20s %10s %10s %25s %10d %10f %10d %10d\n",
+                            x.getEmployee_id(),x.getFirst_name(),x.getLast_name(),x.getEmail(),x.getPhone_number(),x.getHire_date(),x.getJob_id(),x.getJob_title(),
+                            x.getSalary(),x.getCommission_pct(),x.getManager_id(),x.getDepartment_id());
+                }
+
             }else if (menu.equals("x")) {
                 break;
             }

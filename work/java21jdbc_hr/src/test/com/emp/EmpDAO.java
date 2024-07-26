@@ -8,6 +8,8 @@ public interface EmpDAO {
     public int delete(EmpVO vo);
     public EmpVO selectOne(EmpVO vo);
     public List<EmpVO> selectAll();
+    public List<EmpDeptVO> selectAll2();
+    public List<EmpJobVO> selectAll3();
     public List<EmpVO> searchList(String searchKey, String seachWord);
 
 

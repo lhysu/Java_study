@@ -8,6 +8,7 @@ public interface MemberDAO {
     public int update(MemberVO vo);
     public int delete(MemberVO vo);
     public MemberVO selectOne(MemberVO vo);
+    public MemberVO id_Check(String id);
     public List<MemberVO> selectAll();
     public List<MemberVO> searchList(String searchKey,String searchWord);
 }

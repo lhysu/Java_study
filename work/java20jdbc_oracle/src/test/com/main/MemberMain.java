@@ -28,8 +28,23 @@ public class MemberMain {
             //menu = "x";
             if(menu.equals("1")){
                 //입력
-                System.out.println("id:");
-                String id = br.readLine();
+//                System.out.println("id:");
+//                String id = br.readLine();
+
+                //입력한 id(unique) 검증이 필요하다. >> 중복체크가 필요하다.
+                //중복되지 않은 회원아이디인 경우만 다음으로 진행
+                String id = "";
+                MemberVO vo2 = null;
+                do{
+                    System.out.println("id:");
+                    id = br.readLine();
+                    vo2 = dao.id_Check(id);
+                    if(vo2!=null) System.out.println("중복된 코드");
+                }while(vo2!=null);
+                System.out.println("사용가능");
+
+
+
                 System.out.println("pw:");
                 String pw = br.readLine();
                 System.out.println("name:");
